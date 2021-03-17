@@ -59,18 +59,48 @@ BinaryTreeNode *array2BinaryTreeRecursive(int a[], int size, int n) {
     return head;
 }
 
-void retrieve(BinaryTreeNode *head) {
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+typedef struct TreeNode TreeNode;
+
+void retrieve(TreeNode *head) {
     if (head == NULL) return;
     printf("%d ", head->val);
     retrieve(head->left);
     retrieve(head->right);
 }
 
+int nodesOfTree(BinaryTreeNode *head) {
+    if (head == NULL) return 0;
+    int left = nodesOfTree(head->left);
+    int right = nodesOfTree(head->right);
+    return left + right + 1;
+}
+
+
+TreeNode* invertTree(TreeNode* root){
+    if (root == NULL) return NULL;
+    invertTree(root->right);
+    invertTree(root->left);
+    TreeNode *tmp = root->left;
+    root->left = root->right;
+    root->right = tmp;
+    return root;
+}
+
 int main() {
-    int a[10] = {0, 2, 5, 6, 3, 12, 53, 13, 145, 1};
+    /* int a[10] = {0, 2, 5, 6, 3, 12, 53, 13, 145, 1}; */
+    int a[8] = {4, 2, 7, 1, 3, 6, 9};
     int size = sizeof(a) / sizeof(a[0]);
-    BinaryTreeNode *head = array2BinaryTree(a, size);
+    TreeNode *head = (TreeNode*)array2BinaryTree(a, size);
     /* BinaryTreeNode *head = array2BinaryTreeRecursive(a, size, 0); */
-    retrieve(head);
+    /* retrieve(head); */
+    TreeNode* root = invertTree(head);
+    retrieve(root);
+
     return 0;
 }

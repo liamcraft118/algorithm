@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void retrieve(int a[], int size) {
+    for(int i = 0; i < size; i++) {
+        printf("%d ", a[i]);
+    }
+}
+
+
 // time complexsity O(n2), space O(1)
 void insertSort(int *a, int size) {
     for (int i = 0; i < size; i++) {
@@ -56,7 +63,7 @@ void selectionSort(int a[], int size) {
 }
 
 void array2MinHeap(int a[], int size) {
-    for(int i = size - 1; i > 0; i--) {
+    for(int i = 0; i > size - 1; i++) {
         int pIdx = (i + 1) / 2 - 1;
         while(pIdx >= 0) {
             if (a[i] > a[pIdx]) break;
@@ -127,20 +134,28 @@ int popHeap(int a[], int size) {
 void heapSort(int a[], int size) {
     array2MinHeap(a, size);
     /* array2MinHeapRecursive(a, size, size - 1); */
-    int b[size];
-    for (int i = 0; i < size; i++) {
-        b[i] = popHeap(a, size - i);
-    }
+    /* int b[size]; */
+    /* for (int i = 0; i < size; i++) { */
+        /* b[i] = popHeap(a, size - i); */
+    /* } */
 
-    for (int i = 0; i < size; i++) {
-        a[i] = b[i];
+    /* for (int i = 0; i < size; i++) { */
+        /* a[i] = b[i]; */
+    /* } */
+}
+
+void bubbleSort(int a[], int size) {
+    for (int j = 0; j < size - 1; j++) {
+        for (int i = 0; i < size - 1 - j; i++) {
+            if (a[i] > a[i + 1]) {
+                swap(a, i, i + 1);
+            }
+        }
     }
 }
 
-void retrieve(int a[], int size) {
-    for(int i = 0; i < size; i++) {
-        printf("%d ", a[i]);
-    }
+void quickSort(int a[], int begin, int end) {
+
 }
 
 int main() {
@@ -148,7 +163,8 @@ int main() {
     /* insertSort(a, 10); */
     /* shellSort(a, 10); */
     /* selectionSort(a, 10); */
-    heapSort(a, 10);
+    /* heapSort(a, 10); */
+    bubbleSort(a, 10);
     retrieve(a, 10);
     return 0;
 }
